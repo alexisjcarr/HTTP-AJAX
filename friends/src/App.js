@@ -17,13 +17,25 @@ class App extends Component {
   componentDidMount() {
     axios
       .get("http://localhost:5000/friends")
-      .then(res => {
-        console.log("response: ", res);
-        this.setState({
-          friends: res.data
-        });
-      })
-      .catch(err => console.log(err));
+        .then(res => {
+          console.log("response: ", res);
+          this.setState({
+            friends: res.data
+          });
+        })
+        .catch(err => console.log(err));
+  }
+
+  addNewFriend = friend => {
+    axios
+      .post("http://localhost:5000/friends", friend)
+        .then(res => {
+          console.log("post response: ", res);
+          this.setState({
+            friends: res.data,
+          })
+        })
+        .catch(err => console.log(err));
   }
 
   render() {
@@ -39,7 +51,7 @@ class App extends Component {
           path="/friends/:friend"
           render={props => <Friend {...props} friends={this.state.friends} />}
         />
-        <FriendsForm handleChange={this.handleChange} />
+        <FriendsForm addNewFriend={this.addNewFriend}  />
       </div>
     );
   }

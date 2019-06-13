@@ -43,10 +43,23 @@ class FriendsForm extends Component {
     }))
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.addNewFriend(this.state.friend);
+    this.setState({
+      friend: {
+        name: "",
+        age: "",
+        email: "",
+      }
+    })
+
+  }
+
   render() {
     return (
-      <Form>
-        <input type="text" placeholder="name" name="friend" onChange={this.changeHandler} />
+      <Form onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="name" name="name" onChange={this.changeHandler} />
         <input type="text" placeholder="age" name="age" onChange={this.changeHandler} />
         <input type="text" placeholder="email" name="email" onChange={this.changeHandler} />
         <button type="submit">add new friend</button>
