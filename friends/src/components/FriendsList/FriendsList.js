@@ -1,30 +1,42 @@
-import React, { Component } from "react";
+import React from "react";
+import styled from "styled-components";
+
 import Friend from "../Friend/Friend";
-import styled from 'styled-components';
+import FriendsForm from "../FriendsForm/FriendsForm";
 
 const Cards = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`
-
-class FriendsList extends Component {
-  constructor(props) {
-    super(props);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+  color: black;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
   }
-  render() {
-    return (
+`;
+
+const FriendsList = props => {
+  const { friends } = props;
+  return (
+    <div>
       <Cards>
-        {this.props.list.map(friend => (
+        {friends.map(friend => (
           <Friend
             name={friend.name}
             age={friend.age}
             email={friend.email}
-            id={friend.id}
+            key={friend.id}
           />
         ))}
       </Cards>
-    );
-  }
-}
+      <FriendsForm />
+    </div>
+  );
+};
 
 export default FriendsList;
