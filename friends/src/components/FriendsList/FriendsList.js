@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import Friend from "../Friend/Friend";
-import FriendsForm from "../FriendsForm/FriendsForm";
 
 const Cards = styled.div`
   display: flex;
@@ -34,7 +33,6 @@ const FriendsList = props => {
           />
         ))}
       </Cards>
-      <FriendsForm />
     </div>
   );
 };

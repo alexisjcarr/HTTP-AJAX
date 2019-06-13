@@ -4,6 +4,7 @@ import axios from "axios";
 
 import FriendsList from "./components/FriendsList/FriendsList";
 import Friend from "./components/Friend/Friend";
+import FriendsForm from "./components/FriendsForm/FriendsForm";
 
 class App extends Component {
   constructor(props) {
@@ -25,28 +26,6 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  addTo = e => {
-    e.preventDefault();
-
-    let newItem = {
-      task: this.state.task,
-      id: Date.now(),
-      completed: false
-    };
-
-    this.setState(prevState => {
-      return{
-        todoArray: [...prevState.todoArray, newItem]
-      }
-    });
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-
   render() {
     return (
       <div className="App">
@@ -60,6 +39,7 @@ class App extends Component {
           path="/friends/:friend"
           render={props => <Friend {...props} friends={this.state.friends} />}
         />
+        <FriendsForm handleChange={this.handleChange} />
       </div>
     );
   }
