@@ -4,6 +4,7 @@ import axios from "axios";
 
 import FriendsList from "./components/FriendsList/FriendsList";
 import Friend from "./components/Friend/Friend";
+import FriendsForm from "./components/FriendsForm/FriendsForm";
 
 class App extends Component {
   constructor(props) {
@@ -16,36 +17,26 @@ class App extends Component {
   componentDidMount() {
     axios
       .get("http://localhost:5000/friends")
-      .then(res => {
-        console.log("response: ", res);
-        this.setState({
-          friends: res.data
-        });
-      })
-      .catch(err => console.log(err));
+        .then(res => {
+          console.log("response: ", res);
+          this.setState({
+            friends: res.data
+          });
+        })
+        .catch(err => console.log(err));
   }
 
-  addTo = e => {
-    e.preventDefault();
-
-    let newItem = {
-      task: this.state.task,
-      id: Date.now(),
-      completed: false
-    };
-
-    this.setState(prevState => {
-      return{
-        todoArray: [...prevState.todoArray, newItem]
-      }
-    });
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+  addNewFriend = friend => {
+    axios
+      .post("http://localhost:5000/friends", friend)
+        .then(res => {
+          console.log("post response: ", res);
+          this.setState({
+            friends: res.data,
+          })
+        })
+        .catch(err => console.log(err));
+  }
 
   render() {
     return (
@@ -60,6 +51,7 @@ class App extends Component {
           path="/friends/:friend"
           render={props => <Friend {...props} friends={this.state.friends} />}
         />
+        <FriendsForm addNewFriend={this.addNewFriend}  />
       </div>
     );
   }
